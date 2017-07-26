@@ -1,12 +1,13 @@
 ## Assembly
 
 ```sh
-sbt assembly
+$ sbt assembly
 ```
 
 ## Deploy
 
 ```sh
-VOLUME_ID=<VOLUME_ID> DESCRIPTION=<DESCRIPTION> serverless deploy -r <REGION> --role <ROLE_ARN>
+$ cd ./serverless
+$ VOLUME_ID=<VOLUME_ID> DESCRIPTION=<DESCRIPTION> serverless deploy -r <REGION> --role <ROLE_ARN>
 ```
 
