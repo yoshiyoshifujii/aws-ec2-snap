@@ -1,0 +1,30 @@
+service: aws-snap
+
+provider:
+  name: aws
+  runtime: java8
+  region: ${opt:region}
+  role: ${opt:role}
+
+package:
+  individually: true
+  include:
+    - ..
+
+functions:
+  aws-ec2-snap:
+    name: aws-ec2-snap
+    handler: Handler::handleRequest
+    package:
+      artifact: ../target/scala-2.12/aws-snap-assembly.jar
+    description: ${self:service}
+    events:
+     - schedule:
+         name: aws-ec2-snap
+         description: ${self:service}
+         rate: cron(0 17 * * ? *) # Run every day at 2 am (local).
+    memorySize: 1536
+    timeout: 180
+    environment:
+     VOLUME_ID: ${env:VOLUME_ID}
+     DESCRIPTION: ${env:DESCRIPTION}
